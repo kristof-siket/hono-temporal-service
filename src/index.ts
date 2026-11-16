@@ -1,7 +1,8 @@
 import { serve } from '@hono/node-server'
 import { configDotenv } from 'dotenv'
 import { Hono } from 'hono'
-import helloWorld from './services/hello-world'
+import helloWorld from './services/hello-world.js'
+import service from '../service.mjs'
 
 const app = new Hono()
 configDotenv({
@@ -16,4 +17,8 @@ app.get('/hello-world', async (c) => {
     return c.text(result)
 })
 
-serve(app)
+serve({
+    fetch: app.fetch,
+    port: service.port(),
+    hostname: '0.0.0.0',
+})

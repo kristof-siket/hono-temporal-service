@@ -1,6 +1,6 @@
 import { Connection, Client } from '@temporalio/client';
 import { nanoid } from 'nanoid';
-import { TEMPORAL_NAMESPACE, TEMPORAL_SERVER_URL } from '../constants';
+import { TEMPORAL_NAMESPACE, TEMPORAL_SERVER_URL } from '../constants.js';
 
 const run = async <ArgsType = {}, ReturnType = void>(workflow: (args: ArgsType) => Promise<ReturnType>, args: ArgsType): Promise<ReturnType> => {
     const connection = await Connection.connect({ address: TEMPORAL_SERVER_URL });

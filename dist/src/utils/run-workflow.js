@@ -1,0 +1,18 @@
+import { Connection, Client } from '@temporalio/client';
+import { nanoid } from 'nanoid';
+import { TEMPORAL_NAMESPACE, TEMPORAL_SERVER_URL } from '../constants.js';
+const run = async (workflow, args) => {
+    const connection = await Connection.connect({ address: TEMPORAL_SERVER_URL });
+    const client = new Client({
+        connection,
+        namespace: TEMPORAL_NAMESPACE,
+    });
+    const handle = await client.workflow.start(workflow, {
+        taskQueue: 'hello-world',
+        args: [args],
+        workflowId: 'workflow-' + nanoid(),
+    });
+    console.log(`Started workflow ${handle.workflowId}`);
+    return handle.result();
+};
+export default run;
