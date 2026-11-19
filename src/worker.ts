@@ -1,6 +1,9 @@
+import { createRequire } from 'node:module';
 import { NativeConnection, Worker } from '@temporalio/worker';
-import * as activities from './activities/greet';
-import { TEMPORAL_NAMESPACE, TEMPORAL_SERVER_URL } from './constants';
+import * as activities from './activities/greet.js';
+import { TEMPORAL_NAMESPACE, TEMPORAL_SERVER_URL } from './constants.js';
+
+const require = createRequire(import.meta.url);
 
 async function run() {
     const connection = await NativeConnection.connect({
@@ -10,7 +13,7 @@ async function run() {
         connection,
         namespace: TEMPORAL_NAMESPACE,
         taskQueue: 'hello-world',
-        workflowsPath: require.resolve('./workflows'),
+        workflowsPath: require.resolve('./workflows/index.js'),
         activities,
     });
 

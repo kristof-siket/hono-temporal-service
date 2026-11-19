@@ -1,20 +1,35 @@
 {
+  "type": "module",
   "scripts": {
     "start": "tsx watch src/index.ts",
     "worker": "tsx watch src/worker.ts",
+    "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json",
     "temporal:up": "cd ./.temporal && docker-compose up -d && cd .."
   },
   "dependencies": {
     "@hono/node-server": "^1.2.3",
+    "@prisma/composer": "0.38.0",
+    "@prisma/composer-prisma-cloud": "0.38.0",
+    "@prisma/orm-postgres": "8.0.0-rc.23",
     "@temporalio/client": "^1.8.6",
     "@temporalio/worker": "^1.8.6",
     "@temporalio/workflow": "^1.8.6",
     "delay": "^6.0.0",
     "dotenv": "^16.3.1",
+    "effect": "4.0.5",
     "hono": "^3.10.1",
     "nanoid": "^5.0.3"
   },
   "devDependencies": {
-    "tsx": "^3.12.2"
+    "prisma": "8.0.0-rc.33",
+    "tsx": "^4.20.3",
+    "typescript": "5.9.3"
+  },
+  "overrides": {
+    "effect": "4.0.5",
+    "@effect/vitest": "4.0.5",
+    "@effect/platform-bun": "4.0.5",
+    "@effect/platform-node": "4.0.5",
+    "@effect/platform-node-shared": "4.0.5"
   }
 }
